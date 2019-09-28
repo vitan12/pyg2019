@@ -4,8 +4,7 @@ import os
 # Enable Flask's debugging features. Should be False in production
 DEBUG = True
 
-# Enable protection against Cross-site Request Forgery (CSRF)
-CSRF_ENABLED = True
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+class Config(object):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
