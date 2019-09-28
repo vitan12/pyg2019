@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Supporter</h1>
+<h1>{{ ticketinfo }}</h1>
+<h1>{{ itemInfo }}</h1>
+
+<form action="" method="post" novalidate>
+    {{form.hidden_tag()}}
+    <p>
+        {{ form.name.label }} 
+        {{ form.name }}
+    </p>
+    <p>
+       {{ form.quantity.label }}
+       {{ form.quantity }}
+    </p>
+    <select>
+        {% for x in form.cat_select %}
+            {{x}}
+        {% endfor %}
+    </select>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
+
+<!-- <select name="list\_status">
+    {% for each in listStatus %}
+    <option value="{{each}}" {% if each == "list_status" %} selected {% endif %}>{{each}}</option>
+    {% endfor %}
+    </select> -->
+    
+<!-- 
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username(size=32) }}
+    </p>
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(size=32) }}
+    </p>
+    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+    <p>{{ form.submit() }}</p>
+</form> -->

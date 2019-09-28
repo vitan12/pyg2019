@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from app.database import Base
-
+import json
 # is_authenticated
 # This property should return True if the user is authenticated, i.e. they have provided valid credentials. (Only authenticated users will fulfill the criteria of login_required.)
 # is_active
@@ -12,23 +12,23 @@ from app.database import Base
 
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'Users'
     __table_args__ = {'extend_existing': True}
-
-    name = Column(String(), unique=True)
-    username = Column(String(), primary_key=True)
-    email = Column(String(), unique=True)
+    name = Column(String())
+    username = Column(String(), unique=True, primary_key=True)
+    email = Column(String())
     password = Column(String())
-    items_received = Column(String(), unique=True)  # Item
-    items_requested = Column(String(), unique=True) # Item
-    def __init__(self, name=None, username=None, email=None, password=None, items_received=None, items_requested=None):
+    category = Column(Integer())
+    tickets = Column(String()) # OutTicket
+    items_requested = Column(String()) # Item
+    def __init__(self, name=None, username=None, email=None, password=None, tickets=None, items_requested=None, category=None):
         self.name = name
         self.username = username
         self.email = email
         self.password = password
-        self.items_received = items_received
+        self.tickets = tickets
         self.items_requested = items_requested
-
+        self.category = category
 
     def __repr__(self):
         return '<User {}>'.format(self.username)    
@@ -38,15 +38,15 @@ class Item(Base):
     __table_args__ = {'extend_existing': True}
 
     name = Column(String(), primary_key = True, unique=True)
-    quantity = Column(Integer(), unique=True)
-    
-    def __repr__(self):
-        return '<Item {}>'.format(self.name)    
-
-    def __init__(self, name=None, quantity=None):
+    quantity = Column(Integer())
+    category = Column(String())
+    def __init__(self, name=None, quantity=None, category=None):
         self.name = name
         self.quantity = quantity
+        self.category = category
 
+    def __repr__(self):
+        return json.dumps({'item':self.name, 'quantity':self.quantity, 'category':self.category})
 
 class InTicket(Base):
     __tablename__ = 'InTicket'
